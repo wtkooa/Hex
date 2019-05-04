@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player/player.gd" type="Script" id=1]
 [ext_resource path="res://Player/player.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://Player/Power_Collector/Power_Collector.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Target_Controller/Target/Target.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.256371
@@ -17,4 +19,8 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.502184, 0 )
 shape = SubResource( 1 )
+
+[node name="Power_Collector" parent="." instance=ExtResource( 3 )]
+
+[node name="Target" parent="." instance=ExtResource( 4 )]
 

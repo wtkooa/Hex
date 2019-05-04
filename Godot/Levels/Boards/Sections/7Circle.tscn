@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Board/Hex/Hex.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Levels/Boards/Sections/Hex/Hex.tscn" type="PackedScene" id=1]
 
-[node name="Board" type="Spatial"]
+[node name="7Circle" type="Spatial"]
 
 [node name="Hex" parent="." instance=ExtResource( 1 )]
 
