@@ -1,0 +1,72 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Levels/Boards/Sections/Enemy/enemy.gd" type="Script" id=1]
+[ext_resource path="res://Levels/Boards/Sections/Enemy/enemy.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://Target_Controller/Target/Target.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Player/Power_Container/Power_Container.tscn" type="PackedScene" id=4]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.0705882, 0.294118, 0.0235294, 1 )
+metallic_specular = 0.0
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.00784314, 0.109804, 0.0117647, 1 )
+metallic_specular = 0.0
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.701961, 0.290196, 0.0666667, 1 )
+metallic_specular = 0.0
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.537255, 0.8, 0.443137, 1 )
+metallic_specular = 0.0
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.533333, 0.223529, 0.054902, 1 )
+metallic_specular = 0.0
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0.72549, 0.580392, 0.0784314, 1 )
+metallic_specular = 0.0
+
+[sub_resource type="CapsuleShape" id=7]
+radius = 0.839961
+height = 0.0142312
+
+[sub_resource type="SphereShape" id=8]
+radius = 1.16397
+
+[node name="Enemy" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="enemy" type="MeshInstance" parent="."]
+mesh = ExtResource( 2 )
+material/0 = SubResource( 1 )
+material/1 = SubResource( 2 )
+material/2 = SubResource( 3 )
+material/3 = SubResource( 4 )
+material/4 = SubResource( 5 )
+material/5 = SubResource( 6 )
+
+[node name="KinematicBody" type="KinematicBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0303047, 0.848815, 0 )
+shape = SubResource( 7 )
+
+[node name="Area" type="Area" parent="."]
+input_ray_pickable = true
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.779005, 0 )
+shape = SubResource( 8 )
+
+[node name="Target" parent="." instance=ExtResource( 3 )]
+
+[node name="Power_Container" parent="." instance=ExtResource( 4 )]
+max_total_capacity = 10
+
+[connection signal="mouse_entered" from="Area" to="Target" method="_on_targeted"]
+[connection signal="mouse_exited" from="Area" to="Target" method="_on_detargeted"]
+[connection signal="targeted" from="Target" to="." method="_on_Target_targeted"]
+[connection signal="filled" from="Power_Container" to="." method="_on_Power_Container_filled"]
