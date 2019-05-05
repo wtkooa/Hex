@@ -2,6 +2,7 @@ extends KinematicBody
 
 onready var Target = self.get_node("Target")
 onready var Collecter = self.get_node("Power_Collector")
+onready var Power_Container = self.get_node("Power_Container")
 
 export var player_speed = 6.0
 export var player_accel = 4.0
@@ -60,9 +61,14 @@ func move_handler(delta):
 
 	self.current_velocity = self.move_and_slide(self.current_velocity, self.UP_VECTOR)
 
+
 func action_handler(delta):
 	if Input.is_action_pressed("player_primary_action"):
 		self.do_primary_action(delta)
+	if Input.is_action_pressed("player_secondary_action"):
+		self.do_secondary_action(delta)
+	if Input.is_action_just_released("player_secondary_action"):
+		self.release_secondary_action()
 
 
 func do_primary_action(delta):
@@ -73,7 +79,23 @@ func do_primary_action(delta):
 	var power_delta = power
 	for element in power:
 		power_delta[element] = power[element] * delta
-	self.Target.get_current_target().get_bound_object()._on_Player_power_transfer(power)
+	if self.Target.get_current_target() != null:
+		self.Target.get_current_target().get_bound_object()._on_Player_power_transfer(power)
+
+
+func do_secondary_action(delta):
+	var power = self.Collecter._on_Player_power_requested()
+	var power_delta = power
+	for element in power:
+		power_delta[element] = power[element] * delta
+	self.Power_Container._on_power_input(power)
+
+
+func release_secondary_action():
+	var power = self.Power_Container._on_power_output()
+	if self.Target.get_current_target() != null:
+		self.Target.get_current_target().get_bound_object()._on_Player_power_transfer(power)
+		
 
 
 func fall_handler(): ###############################################REMOVE ME

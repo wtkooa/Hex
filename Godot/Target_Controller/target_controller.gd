@@ -2,7 +2,7 @@ extends Spatial
 
 signal detargeted_all(reference)
 
-var current_target
+var current_target = null
 
 func _on_targeted(reference):
 	self.emit_signal("detargeted_all", reference)
@@ -13,4 +13,4 @@ func _on_detargeted(reference):
 		current_target = null
 
 func get_current_target():
-	return current_target
+	return self.current_target

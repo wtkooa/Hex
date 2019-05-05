@@ -44,6 +44,8 @@ func calc_power_source_ratios(end_field_distances):
 	var total_end_field_distance = 0
 	for distance in end_field_distances:
 		total_end_field_distance += distance
+	if total_end_field_distance == 0:
+		return [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 	var power_source_ratios = []
 	for distance in end_field_distances:
 		power_source_ratios.append(distance / total_end_field_distance)
@@ -54,6 +56,9 @@ func calc_elemental_ratios(power_sources, power_source_ratios):
 	var refined_power = {ELEMENT.OORA: 0, ELEMENT.UNDA: 0, ELEMENT.KYDA: 0,
 						 ELEMENT.CYRA: 0, ELEMENT.FLORA: 0, ELEMENT.ERDA: 0} 
 	for source in power_sources:
+		if source.name != "Power_Source":
+			continue
+		
 		var element = source.get_element()
 		refined_power[element] += power_source_ratios.pop_front()
 	return refined_power

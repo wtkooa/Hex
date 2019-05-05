@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player/player.gd" type="Script" id=1]
 [ext_resource path="res://Player/player.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://Player/Power_Collector/Power_Collector.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Target_Controller/Target/Target.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Player/Power_Container/Power_Container.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.256371
@@ -23,4 +24,7 @@ shape = SubResource( 1 )
 [node name="Power_Collector" parent="." instance=ExtResource( 3 )]
 
 [node name="Target" parent="." instance=ExtResource( 4 )]
+
+[node name="Power_Container" parent="." instance=ExtResource( 5 )]
+max_total_capacity = 5
 
