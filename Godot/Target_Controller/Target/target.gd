@@ -2,6 +2,7 @@ extends Spatial
 
 signal targeted(reference)
 signal detargeted(reference)
+signal detargeted_all
 
 var bound_object = null
 
@@ -34,6 +35,7 @@ func _on_detargeted():
 
 
 func _on_detargeted_all(reference):
+	self.emit_signal("detargeted_all")
 	if self != reference:
 		_on_detargeted()
 

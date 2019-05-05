@@ -2,6 +2,7 @@ extends Spatial
 
 onready var Target = self.get_node("Target")
 onready var Power_Container = self.get_node("Power_Container")
+onready var Action_Target = self.get_node("Action_Target")
 
 
 func _ready():

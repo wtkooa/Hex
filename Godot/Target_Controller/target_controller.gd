@@ -10,6 +10,7 @@ func _on_targeted(reference):
 
 func _on_detargeted(reference):
 	if current_target == reference:
+		self.emit_signal("detargeted_all", reference)
 		current_target = null
 
 func get_current_target():

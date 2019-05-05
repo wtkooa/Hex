@@ -3,6 +3,7 @@ extends Spatial
 onready var Target = self.get_node("Target")
 onready var Target_Indicator = self.get_node("Crystal_Target_Mesh")
 onready var Power_Container = self.get_node("Power_Container")
+onready var Action_Target = self.get_node("Action_Target")
 
 export var rotation_speed = 0.1
 
