@@ -1,5 +1,7 @@
 extends Spatial
 
+signal released
+
 onready var Target = self.get_node("Target")
 onready var Target_Indicator = self.get_node("Crystal_Target_Mesh")
 onready var Power_Container = self.get_node("Power_Container")

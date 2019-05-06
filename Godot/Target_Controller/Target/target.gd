@@ -16,6 +16,7 @@ func _ready():
 
 func _exit_tree():
 	self._on_detargeted()
+	Target_Controller.disconnect("detargeted_all", self, "_on_detargeted_all")
 
 
 func bind(reference):

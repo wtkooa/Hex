@@ -15,6 +15,10 @@ const UP_VECTOR = Vector3(0.0, 1.0, 0.0)
 const GRAVITY_VECTOR = Vector3(0.0, -1.0, .0)
 const GRAVITY_FORCE = 9.8
 enum ELEMENT {OORA, UNDA, KYDA, CYRA, FLORA, ERDA}
+var blast_path = "res://Player/Blast/Blast.tscn"
+onready var beam_audio = load("res://Audio/Effects/beam.wav")
+onready var charging_audio = load("res://Audio/Effects/charging.wav")
+
 
 var current_velocity = Vector3()
 
@@ -74,7 +78,6 @@ func action_handler(delta):
 	if Input.is_action_just_released("player_secondary_action"):
 		self.release_secondary_action()
 
-
 func do_primary_action(delta):
 	if self.Target.get_current_target() == null:
 		return
@@ -87,8 +90,11 @@ func do_primary_action(delta):
 		var bound_target = self.Target.get_current_target().get_bound_object()
 		bound_target._on_Player_power_transfer(power)
 		self.Beam.points = [self.to_global(self.Action_Target.translation), bound_target.to_global(bound_target.Action_Target.translation)]
-		self.Beam.visible = true
-		self.Audio_Player.play()
+		if not self.Audio_Player.playing:
+			self.Audio_Player.set_stream(self.beam_audio)
+			self.Audio_Player.play()
+			self.Beam.visible = true
+		
 
 
 func release_primary_action():
@@ -102,19 +108,33 @@ func do_secondary_action(delta):
 	for element in power:
 		power_delta[element] = power[element] * delta
 	self.Power_Container._on_power_input(power)
+	if not self.Audio_Player.playing:
+		self.Audio_Player.set_stream(self.charging_audio)
+		self.Audio_Player.play()
 
 
 func release_secondary_action():
 	var power = self.Power_Container._on_power_output()
+	self.Audio_Player.stop()
 	if self.Target.get_current_target() != null:
-		self.Target.get_current_target().get_bound_object()._on_Player_power_transfer(power)
+		self.fire_blast(power)
 		
+
+
+func fire_blast(power):
+	var Blast = load(self.blast_path).instance()
+	self.add_child(Blast)
+	Blast.translation = self.Action_Target.translation
+	var bound_target = self.Target.get_current_target().get_bound_object()
+	Blast.fire_at(bound_target, power)
 
 
 func fall_handler(): ###############################################REMOVE ME
 	if self.translation.y < -20.0:
 		self.translation = Vector3(0.0, 10.0, 0.0)
 
+
 func _on_Target_detargeted_all():
-	self.Beam.visible = false
-	self.Audio_Player.stop()
+	if self.Target.get_current_target() != null and Input.is_action_pressed("player_primary_action"):
+		self.Beam.visible = false
+		self.Audio_Player.stop()

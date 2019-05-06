@@ -10,7 +10,7 @@
 script = ExtResource( 1 )
 
 [node name="Camera" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 0.889012, 0.457884, 0, -0.457884, 0.889012, 0, 1.65949, 3.03531 )
+transform = Transform( 1, 0, 0, 0, 0.889012, 0.457884, 0, -0.457884, 0.889012, 0, 3.30212, 5.7093 )
 Target_Path = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource( 3 )]

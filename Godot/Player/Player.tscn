@@ -1,13 +1,12 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player/player.gd" type="Script" id=1]
 [ext_resource path="res://Player/player.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://Player/Power_Collector/Power_Collector.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Target_Controller/Target/Target.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Player/Power_Container/Power_Container.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Player/LineRenderer/LineRenderer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Player/Beam/LineRenderer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Player/Action_Target/Action_Target.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Audio/Effects/beam.wav" type="AudioStream" id=8]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.256371
@@ -38,9 +37,8 @@ visible = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 8 )
-volume_db = -14.53
-pitch_scale = 0.3
+volume_db = -6.49
 mix_target = 2
+bus = "Beam"
 
 [connection signal="detargeted_all" from="Target" to="." method="_on_Target_detargeted_all"]

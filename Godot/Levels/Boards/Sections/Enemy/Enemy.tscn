@@ -70,7 +70,9 @@ max_total_capacity = 10
 [node name="Action_Target" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.863159, 0 )
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
 [connection signal="mouse_entered" from="Area" to="Target" method="_on_targeted"]
 [connection signal="mouse_exited" from="Area" to="Target" method="_on_detargeted"]
-[connection signal="targeted" from="Target" to="." method="_on_Target_targeted"]
 [connection signal="filled" from="Power_Container" to="." method="_on_Power_Container_filled"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_AudioStreamPlayer_finished"]
