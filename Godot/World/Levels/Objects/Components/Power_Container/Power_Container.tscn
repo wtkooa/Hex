@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://World/Levels/Objects/Components/Power_Container/power_container.gd" type="Script" id=1]
+
+[node name="Power_Container" type="Spatial"]
+script = ExtResource( 1 )
+

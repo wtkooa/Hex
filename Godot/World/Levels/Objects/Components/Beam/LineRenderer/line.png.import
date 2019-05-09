@@ -1,0 +1,36 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path.s3tc="res://.import/line.png-19d0b6d882a6a32a21a4ea14e8ad91ec.s3tc.stex"
+path.etc2="res://.import/line.png-19d0b6d882a6a32a21a4ea14e8ad91ec.etc2.stex"
+metadata={
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://World/Levels/Objects/Components/Beam/LineRenderer/line.png"
+dest_files=[ "res://.import/line.png-19d0b6d882a6a32a21a4ea14e8ad91ec.s3tc.stex", "res://.import/line.png-19d0b6d882a6a32a21a4ea14e8ad91ec.etc2.stex" ]
+
+[params]
+
+compress/mode=2
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=true
+flags/filter=true
+flags/mipmaps=true
+flags/anisotropic=false
+flags/srgb=1
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0
