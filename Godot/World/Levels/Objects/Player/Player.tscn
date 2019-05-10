@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://World/Levels/Objects/Player/player.gd" type="Script" id=1]
 [ext_resource path="res://World/Levels/Objects/Player/player.obj" type="ArrayMesh" id=2]
@@ -7,7 +7,8 @@
 [ext_resource path="res://World/Levels/Objects/Components/Power_Container/Power_Container.tscn" type="PackedScene" id=5]
 [ext_resource path="res://World/Levels/Objects/Components/Beam/Beam.tscn" type="PackedScene" id=6]
 [ext_resource path="res://World/Levels/Objects/Components/Blaster/Blaster.tscn" type="PackedScene" id=7]
-[ext_resource path="res://World/Levels/Objects/Player/charging.wav" type="AudioStream" id=8]
+[ext_resource path="res://World/UI/Element_Meter/Element_Meter_TX/Element_Meter_TX.tscn" type="PackedScene" id=8]
+[ext_resource path="res://World/Levels/Objects/Player/charging.wav" type="AudioStream" id=9]
 
 [sub_resource type="SpatialMaterial" id=1]
 
@@ -39,8 +40,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 [node name="Blaster" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 
+[node name="Element_Meter_TX" parent="." instance=ExtResource( 8 )]
+
 [node name="Charging_Sound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 8 )
+stream = ExtResource( 9 )
 volume_db = -6.49
 mix_target = 2
 

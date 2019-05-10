@@ -2,8 +2,6 @@
 
 [ext_resource path="res://World/Levels/Objects/Components/Power_Collector/power_collector.gd" type="Script" id=1]
 
-
-
 [sub_resource type="CylinderShape" id=1]
 radius = 1.5
 

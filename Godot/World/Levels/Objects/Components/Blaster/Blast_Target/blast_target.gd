@@ -3,7 +3,7 @@ extends Spatial
 signal received(power)
 signal released
 
-func _on_Blast_Target_tree_exiting():
+func _on_Target_released():
 	self.emit_signal("released")
 
 

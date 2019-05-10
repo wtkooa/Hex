@@ -2,6 +2,7 @@ extends KinematicBody
 
 onready var Target = self.get_node("Focus_Target")
 onready var Collecter = self.get_node("Power_Collector")
+onready var Elemental_Meter_TX = self.get_node("Element_Meter_TX")
 onready var Power_Container = self.get_node("Power_Container")
 onready var Beam = self.get_node("Beam")
 onready var Blaster = self.get_node("Blaster")
@@ -16,20 +17,25 @@ const GRAVITY_VECTOR = Vector3(0.0, -1.0, .0)
 const GRAVITY_FORCE = 9.8
 enum ELEMENT {OORA, UNDA, KYDA, CYRA, FLORA, ERDA}
 
-
-
 var current_velocity = Vector3()
+var frame_elemental_ratio = {ELEMENT.OORA: 0, ELEMENT.UNDA: 0, ELEMENT.KYDA: 0,
+						     ELEMENT.CYRA: 0, ELEMENT.FLORA: 0, ELEMENT.ERDA: 0} 
+var frame_power_amount = {ELEMENT.OORA: 0, ELEMENT.UNDA: 0, ELEMENT.KYDA: 0,
+						  ELEMENT.CYRA: 0, ELEMENT.FLORA: 0, ELEMENT.ERDA: 0} 
 
 
 func _ready():
 	self.Target.bind(self)
+	self.Elemental_Meter_TX.bind("Player_Current_Element_Meter")
 
 
 func _physics_process(delta):
 	
 	self.fall_handler() ##############################################REMOVE ME
 	self.move_handler(delta)
-	self.action_handler(delta)
+	self.power_handler(delta)
+	self.action_handler()
+	
 
 
 func move_handler(delta):
@@ -66,44 +72,42 @@ func move_handler(delta):
 	self.current_velocity = self.move_and_slide(self.current_velocity, self.UP_VECTOR)
 
 
-func action_handler(delta):
+func power_handler(delta):
+	self.frame_elemental_ratio = self.Collecter.determine_elemental_ratio()
+	for element in self.frame_power_amount:
+		self.frame_power_amount[element] = self.frame_elemental_ratio[element] * delta
+	self.Elemental_Meter_TX.transmit(self.frame_elemental_ratio)
+
+
+func action_handler():
 	if Input.is_action_pressed("player_primary_action"):
-		self.do_primary_action(delta)
+		self.do_primary_action()
 	if Input.is_action_just_released("player_primary_action"):
 		self.release_primary_action()
 	if Input.is_action_pressed("player_secondary_action"):
-		self.do_secondary_action(delta)
+		self.do_secondary_action()
 	if Input.is_action_just_released("player_secondary_action"):
 		self.release_secondary_action()
 
-func do_primary_action(delta):
+func do_primary_action():
 	if self.Target.get_current_target() == null:
 		self.release_primary_action()
 		return
-	
-	var power = self.Collecter._on_power_requested()
-	
-	var power_delta = power
-	for element in power:
-		power_delta[element] = power[element] * delta
+
 	var target = self.Target.get_current_target()
-	self.Beam.transmit(power, target)
+	self.Beam.transmit(self.frame_power_amount, target)
 
 
 func release_primary_action():
 	self.Beam.stop()
 
 
-func do_secondary_action(delta):
+func do_secondary_action():
 	if self.Power_Container.is_full():
 		self.Charging_Sound.stop()
 		return
 	
-	var power = self.Collecter._on_power_requested()
-	var power_delta = power
-	for element in power:
-		power_delta[element] = power[element] * delta
-	self.Power_Container._on_power_stored(power)
+	self.Power_Container._on_power_stored(self.frame_power_amount)
 	if not self.Charging_Sound.playing:
 		self.Charging_Sound.play()
 
@@ -115,14 +119,6 @@ func release_secondary_action():
 		var target = self.Target.get_current_target()
 		self.Blaster.fire(power, target)
 		
-
-
-func fire_blast(power):
-	var Blast = load(self.blast_path).instance()
-	self.add_child(Blast)
-	Blast.translation = self.Action_Target.translation
-	var bound_target = self.Target.get_current_target().get_bound_object()
-	Blast.fire_at(bound_target, power)
 
 
 func fall_handler(): ###############################################REMOVE ME

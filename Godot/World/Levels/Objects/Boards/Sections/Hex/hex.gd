@@ -11,14 +11,14 @@ func _ready():
 	self.Power_Source.set_element(element)
 	match self.element:
 		ELEMENT.OORA:
-			self.Model.set_surface_material(surface_level, load("res://Levels/Boards/Sections/Hex/Materials/Oora.material"))
+			self.Model.set_surface_material(surface_level, load("res://World/Levels/Objects/Boards/Sections/Hex/Materials/Oora.material"))
 		ELEMENT.UNDA:
-			self.Model.set_surface_material(surface_level, load("res://Levels/Boards/Sections/Hex/Materials/Unda.material"))
+			self.Model.set_surface_material(surface_level, load("res://World/Levels/Objects/Boards/Sections/Hex/Materials/Unda.material"))
 		ELEMENT.KYDA:
-			self.Model.set_surface_material(surface_level, load("res://Levels/Boards/Sections/Hex/Materials/Kyda.material"))
+			self.Model.set_surface_material(surface_level, load("res://World/Levels/Objects/Boards/Sections/Hex/Materials/Kyda.material"))
 		ELEMENT.CYRA:
-			self.Model.set_surface_material(surface_level, load("res://Levels/Boards/Sections/Hex/Materials/Cyra.material"))
+			self.Model.set_surface_material(surface_level, load("res://World/Levels/Objects/Boards/Sections/Hex/Materials/Cyra.material"))
 		ELEMENT.FLORA:
-			self.Model.set_surface_material(surface_level, load("res://Levels/Boards/Sections/Hex/Materials/Flora.material"))
+			self.Model.set_surface_material(surface_level, load("res://World/Levels/Objects/Boards/Sections/Hex/Materials/Flora.material"))
 		ELEMENT.ERDA:
-			self.Model.set_surface_material(surface_level, load("res://Levels/Boards/Sections/Hex/Materials/Erda.material"))
+			self.Model.set_surface_material(surface_level, load("res://World/Levels/Objects/Boards/Sections/Hex/Materials/Erda.material"))

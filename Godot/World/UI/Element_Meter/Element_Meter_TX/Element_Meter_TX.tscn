@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://World/UI/Element_Meter/Element_Meter_TX/element_meter_TX.gd" type="Script" id=1]
+
+[node name="Element_Meter_TX" type="Spatial"]
+script = ExtResource( 1 )
+

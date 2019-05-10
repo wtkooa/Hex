@@ -6,7 +6,7 @@ onready var collection_field_radius = self.get_node("Collection_Field/CollisionS
 enum ELEMENT {OORA, UNDA, KYDA, CYRA, FLORA, ERDA}
 
 
-func _on_power_requested():
+func determine_elemental_ratio():
 	var power_sources = self.Collector.get_overlapping_areas()
 	var refined_power = self.refine(power_sources)
 	return refined_power

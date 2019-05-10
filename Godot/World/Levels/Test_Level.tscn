@@ -23,6 +23,6 @@ transform = Transform( 1, 0, 0, 0, 0.424037, 0.905645, 0, -0.905645, 0.424037, -
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.729796, 0 )
 
 [node name="Camera" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 0.573576, 0.819152, 0, -0.819152, 0.573576, 0, 0, 0 )
 Target_Path = NodePath("../Player")
 

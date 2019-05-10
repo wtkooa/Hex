@@ -2,7 +2,6 @@
 
 [ext_resource path="res://World/Focus_Controller/Focus_Target/focus_target.gd" type="Script" id=1]
 
-
 [node name="Focus_Target" type="Spatial"]
 script = ExtResource( 1 )
 

@@ -56,6 +56,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 [node name="Death_Sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 
+[connection signal="released" from="." to="Blast_Target" method="_on_Target_released"]
 [connection signal="mouse_entered" from="Mouse_Pick_Area" to="Focus_Target" method="_on_targeted"]
 [connection signal="mouse_exited" from="Mouse_Pick_Area" to="Focus_Target" method="_on_detargeted"]
 [connection signal="filled" from="Power_Container" to="." method="_on_Power_Container_filled"]
