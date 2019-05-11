@@ -24,6 +24,7 @@ var frame_power_amount = Fundamental.new_packet()
 
 func _ready():
 	self.Target.bind(self)
+	self.Power_Container.bind(self.name)
 	self.Elemental_Meter_TX.bind("Player_Current_Element_Meter")
 
 

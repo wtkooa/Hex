@@ -9,6 +9,7 @@ onready var Death_Sound = self.get_node("Death_Sound")
 
 func _ready():
 	self.Target.bind(self)
+	self.Power_Container.bind(self.name)
 
 
 func _on_Power_Container_filled(type):

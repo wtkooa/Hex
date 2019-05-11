@@ -1,12 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://World/Objects/Enemies/Enemy/enemy.gd" type="Script" id=1]
 [ext_resource path="res://World/Objects/Enemies/Enemy/enemy.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://World/Objects/Components/Beam/Beam_Target/Beam_Target.tscn" type="PackedScene" id=3]
 [ext_resource path="res://World/Objects/Components/Blaster/Blast_Target/Blast_Target.tscn" type="PackedScene" id=4]
 [ext_resource path="res://World/Focus_Controller/Focus_Target/Focus_Target.tscn" type="PackedScene" id=5]
-[ext_resource path="res://World/Objects/Components/Power_Container/Quick_Containers/Power_Container_ALL_INF.tscn" type="PackedScene" id=6]
-[ext_resource path="res://World/Objects/Enemies/Enemy/deathd.wav" type="AudioStream" id=7]
+[ext_resource path="res://World/Objects/Components/Power_Container/Power_Container.tscn" type="PackedScene" id=6]
+[ext_resource path="res://World/Objects/Components/Power_Container/Receptacle/Receptacle.tscn" type="PackedScene" id=7]
+[ext_resource path="res://World/Objects/Enemies/Enemy/deathd.wav" type="AudioStream" id=8]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.839961
@@ -51,15 +52,19 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 [node name="Focus_Target" parent="." instance=ExtResource( 5 )]
 
 [node name="Power_Container" parent="." instance=ExtResource( 6 )]
-_max_capacity = 10
+
+[node name="Kyda" parent="Power_Container" instance=ExtResource( 7 )]
+_type = 2
+_max_capacity = 15
 
 [node name="Death_Sound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )
+stream = ExtResource( 8 )
 
 [connection signal="released" from="." to="Blast_Target" method="_on_Target_released"]
 [connection signal="mouse_entered" from="Mouse_Pick_Area" to="Focus_Target" method="_on_targeted"]
 [connection signal="mouse_exited" from="Mouse_Pick_Area" to="Focus_Target" method="_on_detargeted"]
 [connection signal="received" from="Beam_Target" to="." method="_on_Beam_Target_received"]
 [connection signal="received" from="Blast_Target" to="." method="_on_Blast_Target_received"]
+[connection signal="targeted" from="Focus_Target" to="Power_Container" method="_on_Focus_Target_targeted"]
 [connection signal="filled" from="Power_Container" to="." method="_on_Power_Container_filled"]
 [connection signal="finished" from="Death_Sound" to="." method="_on_AudioStreamPlayer_finished"]

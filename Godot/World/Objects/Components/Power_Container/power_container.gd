@@ -1,11 +1,23 @@
 extends Spatial
 
 signal filled(type)
+signal targeted(reference)
+signal transmitted(data)
+signal released()
 
+export(NodePath) var UI_path = "Program/World/UI"
+onready var UI = get_tree().get_root().get_node(self.UI_path)
 export var _max_capacity = -1
 
 var _current_amount = 0
 var _filled = false
+var _containter_name = "Power_Container"
+var _Bound_UI
+
+func _ready():
+	self._Bound_UI = UI.get_node("Container_Gauge")
+	self.connect("targeted", self._Bound_UI, "_on_Container_targeted")
+
 
 func store(power):
 	var receptacles = self.get_children()
@@ -46,6 +58,7 @@ func store(power):
 			else:
 				self.emit_signal("filled", "TOTAL")
 				self._filled = true
+	self.transmit()
 
 
 func release():
@@ -55,7 +68,7 @@ func release():
 
 
 func drain():
-	pass
+	self.transmit()
 
 
 func check():
@@ -79,3 +92,28 @@ func clear():
 	var receptacles = self.get_children()
 	for receptacle in receptacles:
 		receptacle.clear()
+	self.transmit()
+
+
+func bind(name):
+	self._containter_name = name
+
+
+func _on_Focus_Target_targeted(reference):
+	self.emit_signal("targeted", self)
+
+
+func data():
+	var data = []
+	data.append(self._containter_name)
+	data.append([self._current_amount, self._max_capacity])
+	data.append(self.get_children())
+	return data
+
+
+func transmit():
+	self.emit_signal("transmitted", self.data())
+
+
+func _exit_tree():
+	self.emit_signal("released")

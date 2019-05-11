@@ -10,7 +10,8 @@ export var rotation_speed = 0.1
 
 
 func _ready():
-	Target.bind(self)
+	self.Target.bind(self)
+	self.Power_Container.bind(self.name)
 
 func _process(delta):
 	self.rotate_y(self.rotation_speed * delta)
