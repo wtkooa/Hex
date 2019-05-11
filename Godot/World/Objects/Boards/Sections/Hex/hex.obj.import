@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/hex.obj-85ae825ec7e6b9615e1822730f7f0729.mesh"
+
+[deps]
+
+files=[ "res://.import/hex.obj-85ae825ec7e6b9615e1822730f7f0729.mesh" ]
+
+source_file="res://World/Objects/Boards/Sections/Hex/hex.obj"
+dest_files=[ "res://.import/hex.obj-85ae825ec7e6b9615e1822730f7f0729.mesh", "res://.import/hex.obj-85ae825ec7e6b9615e1822730f7f0729.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true

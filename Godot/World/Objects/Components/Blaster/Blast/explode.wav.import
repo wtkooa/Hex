@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/explode.wav-dec2afec6280f2b8ebb43bcb2d09eaec.sample"
+
+[deps]
+
+source_file="res://World/Objects/Components/Blaster/Blast/explode.wav"
+dest_files=[ "res://.import/explode.wav-dec2afec6280f2b8ebb43bcb2d09eaec.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

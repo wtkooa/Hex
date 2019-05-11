@@ -19,6 +19,10 @@ config/name="HEX"
 run/main_scene="res://Program/Program.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Fundamental="*res://World/Fundamental/fundamental.gd"
+
 [input]
 
 ui_accept={

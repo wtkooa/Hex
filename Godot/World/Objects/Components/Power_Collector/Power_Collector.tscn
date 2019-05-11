@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://World/Objects/Components/Power_Collector/power_collector.gd" type="Script" id=1]
+
+[sub_resource type="CylinderShape" id=1]
+radius = 1.5
+
+[node name="Power_Collector" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Collection_Field" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Collection_Field"]
+shape = SubResource( 1 )
+

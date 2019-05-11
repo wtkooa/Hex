@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://World/Objects/Components/Power_Container/power_container.gd" type="Script" id=1]
+[ext_resource path="res://World/Objects/Components/Power_Container/Receptacle/Receptacle.tscn" type="PackedScene" id=2]
+
+[node name="Power_Container" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Oora" parent="." instance=ExtResource( 2 )]
+
+[node name="Unda" parent="." instance=ExtResource( 2 )]
+_type = 1
+
+[node name="Kyda" parent="." instance=ExtResource( 2 )]
+_type = 2
+
+[node name="Cyra" parent="." instance=ExtResource( 2 )]
+_type = 3
+
+[node name="Flora" parent="." instance=ExtResource( 2 )]
+_type = 4
+
+[node name="Erda" parent="." instance=ExtResource( 2 )]
+_type = 5
+
