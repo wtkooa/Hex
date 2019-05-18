@@ -12,6 +12,7 @@ func _on_Container_targeted(reference):
 	
 	if not self.current_reference == null:
 		self.current_reference.disconnect("transmitted", self, "_on_Container_transmitted")
+		self.current_reference.disconnect("released", self, "_on_Container_released")
 	self.current_reference = reference
 	reference.connect("transmitted", self, "_on_Container_transmitted")
 	reference.connect("released", self, "_on_Container_released")
@@ -23,7 +24,7 @@ func _on_Container_targeted(reference):
 	Object_Name_Label.set_text(new_name)
 	self.clear_receptacles()
 	self.generate_total_receptacle(total_data)
-	self.generate_elemental_receptacles(elemental_receptacles)	
+	self.generate_elemental_receptacles(elemental_receptacles)
 
 
 func clear_receptacles():

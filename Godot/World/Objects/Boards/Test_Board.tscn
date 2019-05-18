@@ -2,7 +2,6 @@
 
 [ext_resource path="res://World/Objects/Boards/Sections/7Circle.tscn" type="PackedScene" id=1]
 
-
 [node name="Test_Board" type="Spatial"]
 
 [node name="7Circle" parent="." instance=ExtResource( 1 )]

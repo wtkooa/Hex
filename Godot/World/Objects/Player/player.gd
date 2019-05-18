@@ -80,22 +80,27 @@ func power_handler(delta):
 
 
 func action_handler():
+	if Input.is_action_just_pressed("player_primary_action") and not Input.is_action_pressed("player_secondary_action"):
+		self.start_primary_action()
 	if Input.is_action_pressed("player_primary_action"):
 		self.do_primary_action()
 	if Input.is_action_just_released("player_primary_action"):
 		self.release_primary_action()
-	if Input.is_action_pressed("player_secondary_action"):
+	if Input.is_action_pressed("player_secondary_action") and not Input.is_action_pressed("player_primary_action"):
 		self.do_secondary_action()
 	if Input.is_action_just_released("player_secondary_action"):
 		self.release_secondary_action()
 
-func do_primary_action():
+func start_primary_action():
 	if self.Target.get_current_target() == null:
 		self.release_primary_action()
 		return
-
+	
 	var target = self.Target.get_current_target()
-	self.Beam.transmit(self.frame_power_amount, target)
+	self.Beam.aim_at(target)
+
+func do_primary_action():
+	self.Beam.transmit(self.frame_power_amount)
 
 
 func release_primary_action():

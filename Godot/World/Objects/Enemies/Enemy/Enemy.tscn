@@ -61,6 +61,8 @@ _max_capacity = 15
 stream = ExtResource( 8 )
 
 [connection signal="released" from="." to="Blast_Target" method="_on_Target_released"]
+[connection signal="released" from="." to="Power_Container" method="_on_Target_released"]
+[connection signal="released" from="." to="Beam_Target" method="_on_Target_released"]
 [connection signal="mouse_entered" from="Mouse_Pick_Area" to="Focus_Target" method="_on_targeted"]
 [connection signal="mouse_exited" from="Mouse_Pick_Area" to="Focus_Target" method="_on_detargeted"]
 [connection signal="received" from="Beam_Target" to="." method="_on_Beam_Target_received"]

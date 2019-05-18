@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/sky_test.obj-ba1ce381343f9e50e75d748a6bd00f79.mesh"
+
+[deps]
+
+files=[ "res://.import/sky_test.obj-ba1ce381343f9e50e75d748a6bd00f79.mesh" ]
+
+source_file="res://World/Levels/Test/Sky/sky_test.obj"
+dest_files=[ "res://.import/sky_test.obj-ba1ce381343f9e50e75d748a6bd00f79.mesh", "res://.import/sky_test.obj-ba1ce381343f9e50e75d748a6bd00f79.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true

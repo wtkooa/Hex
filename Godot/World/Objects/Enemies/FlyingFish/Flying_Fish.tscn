@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://World/Objects/Enemies/FlyingFish/FlyingFish_Take.dae" type="PackedScene" id=1]
+[ext_resource path="res://World/Objects/Enemies/FlyingFish/flying_fish.gd" type="Script" id=2]
+[ext_resource path="res://World/Objects/Components/Power_Container/Power_Container.tscn" type="PackedScene" id=3]
+[ext_resource path="res://World/Objects/Components/Power_Container/Receptacle/Receptacle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://World/Focus_Controller/Focus_Target/Focus_Target.tscn" type="PackedScene" id=5]
+[ext_resource path="res://World/Objects/Components/Blaster/Blast_Target/Blast_Target.tscn" type="PackedScene" id=6]
+[ext_resource path="res://World/Objects/Components/Beam/Beam_Target/Beam_Target.tscn" type="PackedScene" id=7]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.475819
+height = 1.36
+
+[node name="Flying_Fish" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "fly-loop"
+
+[node name="Power_Container" parent="." index="2" instance=ExtResource( 3 )]
+
+[node name="Receptacle" parent="Power_Container" index="0" instance=ExtResource( 4 )]
+_type = 3
+_max_capacity = 20
+
+[node name="Focus_Target" parent="." index="3" instance=ExtResource( 5 )]
+
+[node name="Area" type="Area" parent="." index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.591651, 0, 0 )
+input_ray_pickable = true
+
+[node name="CollisionShape" type="CollisionShape" parent="Area" index="0"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="Blast_Target" parent="." index="5" instance=ExtResource( 6 )]
+
+[node name="Beam_Target" parent="." index="6" instance=ExtResource( 7 )]
+
+[connection signal="released" from="." to="Blast_Target" method="_on_Target_released"]
+[connection signal="released" from="." to="Beam_Target" method="_on_Target_released"]
+[connection signal="released" from="." to="Power_Container" method="_on_Target_released"]
+[connection signal="filled" from="Power_Container" to="." method="_on_Power_Container_filled"]
+[connection signal="targeted" from="Focus_Target" to="Power_Container" method="_on_Focus_Target_targeted"]
+[connection signal="mouse_entered" from="Area" to="Focus_Target" method="_on_targeted"]
+[connection signal="mouse_exited" from="Area" to="Focus_Target" method="_on_detargeted"]
+[connection signal="received" from="Blast_Target" to="." method="_on_Blast_Target_received"]
+[connection signal="received" from="Beam_Target" to="." method="_on_Beam_Target_received"]

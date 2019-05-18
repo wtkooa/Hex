@@ -37,3 +37,11 @@ func magnitude():
 func clear():
 	for element in self._power:
 		self._power[element] = 0.0
+
+func normalize():
+	var total = self.magnitude()
+	for element in self._power:
+		if total == 0:
+			self._power[element] = 0
+		else:
+			self._power[element] = self._power[element] / total

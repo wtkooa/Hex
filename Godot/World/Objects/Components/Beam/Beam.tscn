@@ -1,16 +1,85 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://World/Objects/Components/Beam/beam.gd" type="Script" id=1]
 [ext_resource path="res://World/Objects/Components/Beam/LineRenderer/LineRenderer.tscn" type="PackedScene" id=2]
-[ext_resource path="res://World/Objects/Components/Beam/beam.wav" type="AudioStream" id=3]
+[ext_resource path="res://World/Objects/Components/Beam/LineRenderer/beam.material" type="Material" id=3]
+[ext_resource path="res://World/Objects/Components/Beam/beam.wav" type="AudioStream" id=4]
+[ext_resource path="res://World/Objects/Components/Beam/beam_start_short.wav" type="AudioStream" id=5]
+[ext_resource path="res://World/Objects/Components/Beam/beam_end_short.wav" type="AudioStream" id=6]
+[ext_resource path="res://World/Objects/Components/Beam/LineRenderer/Beam_Particle2.png" type="Texture" id=7]
 
+[sub_resource type="Animation" id=1]
+resource_name = "BeamUVs"
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Geometry:material_override:uv1_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 1, 0, 0 ) ]
+}
+
+[sub_resource type="ParticlesMaterial" id=2]
+emission_shape = 1
+emission_sphere_radius = 0.2
+flag_align_y = true
+flag_rotate_y = true
+spread = 99.11
+gravity = Vector3( 0, 3, 0 )
+initial_velocity = 6.0
+initial_velocity_random = 0.5
+angular_velocity = 2.91609e+32
+angle = 360.0
+angle_random = 1.0
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_transparent = true
+flags_unshaded = true
+params_cull_mode = 2
+albedo_color = Color( 1, 1, 1, 0.788235 )
+albedo_texture = ExtResource( 7 )
+
+[sub_resource type="SphereMesh" id=4]
+material = SubResource( 3 )
+radius = 0.1
+height = 0.2
 
 [node name="Beam" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="Geometry" parent="." instance=ExtResource( 2 )]
 visible = false
+material_override = ExtResource( 3 )
+cast_shadow = 0
+startThickness = 0.2
+endThickness = 0.2
 
-[node name="Sound_Effect" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
+[node name="Transferring" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+pitch_scale = 0.5
+
+[node name="Spinup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+pitch_scale = 2.0
+
+[node name="Cooldown" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+pitch_scale = 2.0
+
+[node name="Beam_UV_Animation" type="AnimationPlayer" parent="."]
+autoplay = "BeamUVs"
+anims/BeamUVs = SubResource( 1 )
+
+[node name="End_of_Beam_Particles" type="Particles" parent="."]
+visible = false
+amount = 13
+randomness = 1.0
+process_material = SubResource( 2 )
+draw_pass_1 = SubResource( 4 )
 

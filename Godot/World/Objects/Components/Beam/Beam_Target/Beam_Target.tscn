@@ -2,7 +2,6 @@
 
 [ext_resource path="res://World/Objects/Components/Beam/Beam_Target/beam_target.gd" type="Script" id=1]
 
-
 [node name="Beam_Target" type="Spatial"]
 script = ExtResource( 1 )
 

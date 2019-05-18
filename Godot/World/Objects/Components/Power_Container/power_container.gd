@@ -115,5 +115,5 @@ func transmit():
 	self.emit_signal("transmitted", self.data())
 
 
-func _exit_tree():
+func _on_Target_released():
 	self.emit_signal("released")
