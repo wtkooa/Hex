@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://World/UI/Debug_Panel/Label/Grundschrift_debug_label.tres" type="DynamicFont" id=1]
+[ext_resource path="res://World/UI/Debug_Panel/Label/debug_label.gd" type="Script" id=2]
+
+[node name="Debug_Label" type="Label"]
+modulate = Color( 1, 1, 1, 0.8 )
+margin_right = 40.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+text = "Unlabled"
+align = 1
+script = ExtResource( 2 )
+label = "Floor ID"
+

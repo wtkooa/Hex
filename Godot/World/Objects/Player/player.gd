@@ -1,9 +1,13 @@
 extends KinematicBody
 
+signal sent_debug(name, message)
+onready var Debug_Panel = get_tree().get_root().get_node("Program/World/UI/Debug_Panel")
+
 onready var Target = self.get_node("Focus_Target")
 onready var Collecter = self.get_node("Power_Collector")
 onready var Elemental_Meter_TX = self.get_node("Element_Meter_TX")
 onready var Power_Container = self.get_node("Power_Container")
+onready var Floor_Ray = self.get_node("Mesh/RayCast")
 onready var Beam = self.get_node("Beam")
 onready var Blaster = self.get_node("Blaster")
 onready var Charging_Sound = self.get_node("Charging_Sound")
@@ -26,6 +30,7 @@ func _ready():
 	self.Target.bind(self)
 	self.Power_Container.bind(self.name)
 	self.Elemental_Meter_TX.bind("Player_Current_Element_Meter")
+	self.connect("sent_debug", self.Debug_Panel, "_on_Debug_message")
 
 
 func _physics_process(delta):
@@ -66,13 +71,22 @@ func move_handler(delta):
 	
 	self.current_velocity.x = horizontal_velocity.x
 	self.current_velocity.z = horizontal_velocity.z
+	
+	var Floor_Object = self.Floor_Ray.get_collider()
+	var floor_velocity = Vector3(0.0, 0.0, 0.0)
+	if not Floor_Object == null and Floor_Object.name != "Power_Source":
+		self.emit_signal("sent_debug", "Current_Floor", str(Floor_Object))
+		floor_velocity = Floor_Object.get_parent().get_movement_vector()
+		self.emit_signal("sent_debug", "Floor_Velocity", str(floor_velocity))
 
 	self.current_velocity = self.move_and_slide(self.current_velocity, self.UP_VECTOR)
+	self.translation += floor_velocity
 
 
 func power_handler(delta):
 	var power = self.Collecter.determine_elemental_ratio()
 	self.frame_elemental_ratio.set_power(power.get_power()) 
+	power.queue_free()
 	for element in Fundamental.ELEMENTS.values():
 		var elemental_power_delta = self.frame_elemental_ratio.get_element(element) * delta
 		self.frame_power_amount.set_element(element, elemental_power_delta)

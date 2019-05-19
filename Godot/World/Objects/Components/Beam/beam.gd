@@ -1,6 +1,7 @@
 extends Spatial
 
-signal transmitted(power)
+signal transmitted(power, color)
+signal stopped()
 
 onready var Beam = self.get_node("Geometry")
 onready var End_of_Beam_Particles = self.get_node("End_of_Beam_Particles")
@@ -28,6 +29,7 @@ func aim_at(target):
 		return
 	
 	self._current_beam_target.connect("released", self, "_on_Beam_Target_released")
+	self.connect("stopped", self._current_beam_target, "_on_Beam_stopped")
 
 	if not self.Spinup_Sound.playing:
 		self.Spinup_Sound.play()
@@ -43,19 +45,24 @@ func transmit(power):
 	var global_beam_origin = self.to_global(self.translation)
 	var global_beam_target = self._current_beam_target.to_global(self._current_beam_target.translation)
 	var beam_distance = global_beam_origin.distance_to(global_beam_target)
-	var new_geometric_vectors = [global_beam_origin, global_beam_target]
+	var reversed_global_vector = -(global_beam_target - global_beam_origin)
+	reversed_global_vector = reversed_global_vector.normalized()
+	reversed_global_vector *= self._current_beam_target.get_bubble_radius()
+	var global_bubble_target = global_beam_target + reversed_global_vector
+	var new_geometric_vectors = [global_beam_origin, global_bubble_target]
 	
 	if beam_distance > self._max_beam_distance:
 		self.stop()
 		return
 	
 	self.Beam.set_origin_and_target_vectors(new_geometric_vectors)
-	self.End_of_Beam_Particles.translation = self.to_local(global_beam_target)
+	self.End_of_Beam_Particles.translation = self.to_local(global_bubble_target)
 	
 	var normalized_power = Fundamental.new_packet()
 	normalized_power.set_power(power.get_power())
 	normalized_power.normalize()
 	var color = self.calc_elemental_color(normalized_power)
+	normalized_power.queue_free()
 	self.Beam.colorize(color)
 	self.End_of_Beam_Particles.draw_pass_1.material.albedo_color = color
 	
@@ -63,7 +70,7 @@ func transmit(power):
 		self.Transferring_Sound.play()
 	
 	self.connect("transmitted", self._current_beam_target, "_on_Beam_transmitted")
-	self.emit_signal("transmitted", power)
+	self.emit_signal("transmitted", power, color, global_bubble_target)
 	self.disconnect("transmitted", self._current_beam_target, "_on_Beam_transmitted")
 	
 	if not self.Beam.visible:
@@ -81,6 +88,8 @@ func stop():
 				yield(self.Spinup_Sound, "finished")
 		self.Cooldown_Sound.play()
 	
+	self.emit_signal("stopped")
+	self.disconnect("stopped", self._current_beam_target, "_on_Beam_stopped")
 	self._current_beam_target = null
 	self.Beam.visible = false
 	self.End_of_Beam_Particles.visible = false

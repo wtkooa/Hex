@@ -4,15 +4,14 @@
 [ext_resource path="res://World/Levels/Test/Test_Level.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World/UI/UI.tscn" type="PackedScene" id=3]
 
-
-[sub_resource type="ProceduralSky" id=3]
+[sub_resource type="ProceduralSky" id=1]
 sky_curve = 0.107029
 ground_bottom_color = Color( 0.168627, 0.286275, 0.192157, 1 )
 ground_horizon_color = Color( 0.411765, 0.243137, 0.101961, 1 )
 ground_curve = 0.218567
 
 [sub_resource type="Environment" id=2]
-background_sky = SubResource( 3 )
+background_sky = SubResource( 1 )
 background_sky_orientation = Basis( 1, 0, 0, 0, 0.841361, 0.540474, 0, -0.540474, 0.841361 )
 background_sky_rotation = Vector3( -0.571, 0, 0 )
 background_sky_rotation_degrees = Vector3( -32.7159, 0, 0 )
