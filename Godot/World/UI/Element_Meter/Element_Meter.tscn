@@ -2,10 +2,7 @@
 
 [ext_resource path="res://World/UI/Element_Meter/element_meter.gd" type="Script" id=1]
 [ext_resource path="res://World/UI/Element_Meter/Color_Meter_BG.png" type="Texture" id=2]
-
-[sub_resource type="StreamTexture" id=1]
-flags = 4
-load_path = "res://.import/Color_Meter.png-1c7ee4a13484f76f908f971c09cf13a3.stex"
+[ext_resource path="res://World/UI/Element_Meter/Color_Meter.png" type="Texture" id=3]
 
 [node name="Element_Meter" type="Control"]
 anchor_top = 1.0
@@ -30,5 +27,5 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -256.0
 margin_right = 256.0
-texture = SubResource( 1 )
+texture = ExtResource( 3 )
 
